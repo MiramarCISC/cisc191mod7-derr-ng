@@ -53,6 +53,7 @@ public class GameServiceImpl extends GameServiceGrpc.GameServiceImplBase {
                 .setOpponentName(match.opponentName())
                 .setMessage("Joined " + match.matchType() + " match " + matchId
                         + " on " + difficulty + " difficulty. Click Play Match to let the server choose a winner.")
+<<<<<<< HEAD
                 .setSummary(buildJoinSummary(
                         matchId,
                         match.playerName(),
@@ -60,6 +61,9 @@ public class GameServiceImpl extends GameServiceGrpc.GameServiceImplBase {
                         difficulty,
                         ranked
                 ))
+=======
+                .setSummary(buildJoinSummary(matchId, playerName, match.opponentName(), difficulty, ranked))
+>>>>>>> 5c7e5d2cb4f798d0f6c151274b60aab884c6d06b
                 .build();
 
         responseObserver.onNext(response);
@@ -67,18 +71,8 @@ public class GameServiceImpl extends GameServiceGrpc.GameServiceImplBase {
     }
 
     /**
-     * TODO 6: Complete this server-side summary helper, then use it in JoinMatchResponse
-     * after adding the new summary field to the .proto file.
-     *
-     * Expected format:
-     * Match match-001: Ada vs Bot (Hard, ranked)
-     *
-     * Requirements:
-     * - Use "No match" when matchId is null or blank.
-     * - Use "Player" when playerName is null or blank.
-     * - Use "Bot" when opponentName is null or blank.
-     * - Use "Normal" when difficulty is null or blank.
-     * - Use "ranked" when ranked is true, otherwise "casual".
+     * TODO 6: Builds a readable match summary for the gRPC response.
+     * Format: Match match-001: Ada vs Bot (Hard, ranked)
      */
     public static String buildJoinSummary(
             String matchId,
@@ -87,11 +81,15 @@ public class GameServiceImpl extends GameServiceGrpc.GameServiceImplBase {
             String difficulty,
             boolean ranked
     ) {
+<<<<<<< HEAD
 
+=======
+>>>>>>> 5c7e5d2cb4f798d0f6c151274b60aab884c6d06b
         if (matchId == null || matchId.isBlank()) {
             return "No match";
         }
 
+<<<<<<< HEAD
         String safePlayer =
                 (playerName == null || playerName.isBlank())
                         ? "Player"
@@ -117,6 +115,16 @@ public class GameServiceImpl extends GameServiceGrpc.GameServiceImplBase {
                 safeDifficulty,
                 matchType
         );
+=======
+        String effectivePlayer = (playerName == null || playerName.isBlank()) ? "Player" : playerName.trim();
+        String effectiveOpponent = (opponentName == null || opponentName.isBlank()) ? "Bot" : opponentName.trim();
+        String effectiveDifficulty = (difficulty == null || difficulty.isBlank()) ? "Normal" : difficulty.trim();
+        String rankedLabel = ranked ? "ranked" : "casual";
+
+        return "Match " + matchId.trim() + ": "
+                + effectivePlayer + " vs " + effectiveOpponent
+                + " (" + effectiveDifficulty + ", " + rankedLabel + ")";
+>>>>>>> 5c7e5d2cb4f798d0f6c151274b60aab884c6d06b
     }
 
     @Override

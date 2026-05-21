@@ -33,24 +33,22 @@ public class GameGrpcClient {
         return new Task<>() {
             @Override
             protected JoinMatchResponse call() {
+<<<<<<< HEAD
                 JoinMatchRequest request =
                         buildJoinMatchRequest(playerName, difficulty, ranked);
 
+=======
+                JoinMatchRequest request = buildJoinMatchRequest(playerName, difficulty, ranked);
+>>>>>>> 5c7e5d2cb4f798d0f6c151274b60aab884c6d06b
                 return blockingStub.joinMatch(request);
             }
         };
     }
 
     /**
-     * TODO 4: Complete this client-side gRPC helper, then use it from joinMatchTask.
-     *
-     * Requirements:
-     * - Build and return a JoinMatchRequest.
-     * - Use "Player" when playerName is null or blank.
-     * - Use "Normal" when difficulty is null or blank.
-     * - Trim playerName and difficulty.
-     * - Preserve the ranked value.
+     * TODO 4: Builds a JoinMatchRequest with safe defaults for blank/null inputs.
      */
+<<<<<<< HEAD
     public static JoinMatchRequest buildJoinMatchRequest(
             String playerName,
             String difficulty,
@@ -70,6 +68,15 @@ public class GameGrpcClient {
         return JoinMatchRequest.newBuilder()
                 .setPlayerName(safePlayer)
                 .setDifficulty(safeDifficulty)
+=======
+    public static JoinMatchRequest buildJoinMatchRequest(String playerName, String difficulty, boolean ranked) {
+        String effectivePlayer = (playerName == null || playerName.isBlank()) ? "Player" : playerName.trim();
+        String effectiveDifficulty = (difficulty == null || difficulty.isBlank()) ? "Normal" : difficulty.trim();
+
+        return JoinMatchRequest.newBuilder()
+                .setPlayerName(effectivePlayer)
+                .setDifficulty(effectiveDifficulty)
+>>>>>>> 5c7e5d2cb4f798d0f6c151274b60aab884c6d06b
                 .setRanked(ranked)
                 .build();
     }
