@@ -71,5 +71,5 @@
 
         </VBox>
     </bottom>
-
+    <Label fx:id="matchSummaryLabel" text="Summary: No match" />
 </BorderPane>

@@ -33,11 +33,8 @@ public class GameGrpcClient {
         return new Task<>() {
             @Override
             protected JoinMatchResponse call() {
-                JoinMatchRequest request = JoinMatchRequest.newBuilder()
-                        .setPlayerName(playerName)
-                        .setDifficulty(difficulty)
-                        .setRanked(ranked)
-                        .build();
+                JoinMatchRequest request =
+                        buildJoinMatchRequest(playerName, difficulty, ranked);
 
                 return blockingStub.joinMatch(request);
             }
@@ -54,11 +51,26 @@ public class GameGrpcClient {
      * - Trim playerName and difficulty.
      * - Preserve the ranked value.
      */
-    public static JoinMatchRequest buildJoinMatchRequest(String playerName, String difficulty, boolean ranked) {
+    public static JoinMatchRequest buildJoinMatchRequest(
+            String playerName,
+            String difficulty,
+            boolean ranked
+    ) {
+
+        String safePlayer =
+                (playerName == null || playerName.isBlank())
+                        ? "Player"
+                        : playerName.trim();
+
+        String safeDifficulty =
+                (difficulty == null || difficulty.isBlank())
+                        ? "Normal"
+                        : difficulty.trim();
+
         return JoinMatchRequest.newBuilder()
-                .setPlayerName("TODO")
-                .setDifficulty("TODO")
-                .setRanked(false)
+                .setPlayerName(safePlayer)
+                .setDifficulty(safeDifficulty)
+                .setRanked(ranked)
                 .build();
     }
 
