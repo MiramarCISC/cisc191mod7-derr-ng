@@ -8,11 +8,15 @@ import edu.sdccd.cisc191.service.GameGrpcClient;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
+import javafx.scene.control.*;
+
+// I'd personally use this instead of spamming every needed JavaFX plug-in for control
+/*
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.TextField; */
 
 public class GameController {
 
